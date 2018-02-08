@@ -55,10 +55,8 @@ class GhcAT80 < Formula
   # "This is a distribution for Mac OS X, 10.7 or later."
   resource "binary" do
     if OS.linux?
-      # Using 8.0.1 gives the error message:
-      # strip: Not enough room for program headers, try linking with -N
-      url "https://downloads.haskell.org/~ghc/7.8.4/ghc-7.8.4-x86_64-unknown-linux-deb7.tar.xz"
-      sha256 "f62e00e93a5ac16ebfe97cd7cb8cde6c6f3156073d4918620542be3e0ad55f8d"
+      url "https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-x86_64-deb7-linux.tar.xz"
+      sha256 "b2f5c304b57ac5840a0d2ef763a3c6fa858c70840f749cfad12ed227da973c0a"
     else
       url "https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-x86_64-apple-darwin.tar.xz"
       sha256 "ff50a2df9f002f33b9f09717ebf5ec5a47906b9b65cc57b1f9849f8b2e06788d"
@@ -72,7 +70,7 @@ class GhcAT80 < Formula
 
   def install
     # Reduce memory usage below 4 GB for Circle CI.
-    ENV["MAKEFLAGS"] = "-j29" if ENV["CIRCLECI"]
+    ENV["MAKEFLAGS"] = "-j6" if ENV["CIRCLECI"]
 
     # Setting -march=native, which is what --build-from-source does, fails
     # on Skylake (and possibly other architectures as well) with the error
